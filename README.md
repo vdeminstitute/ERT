@@ -1,6 +1,6 @@
 # Episodes of Regime Transformation (ERT) dataset 
 
-#### NOTE we provide here mainly for non-R users the ERT dataset as csv. file (click the green clone or download button) - however, we recommend using our [vdemdata R package](https://github.com/vdeminstitute/vdemdata) since one huge advantage of the package is that it allows to flexibly set parameters for generating the ERT dataset.
+#### NOTE: we provide here mainly for non-R users the ERT dataset as csv. file (click the green clone or download button) - however, we recommend using our [vdemdata R package](https://github.com/vdeminstitute/vdemdata) since one huge advantage of the package is that it allows to flexibly set parameters for generating the ERT dataset.
 
 #### For details see the attached ERT Codebook.
 
