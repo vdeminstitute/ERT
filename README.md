@@ -1,13 +1,37 @@
-# Episodes of Regime Transformation (ERT) dataset 
-
-#### NOTE: we provide here mainly for non-R users the ERT dataset as csv. file (download the repository including the codebook by clicking the green clone or download button) - however, we recommend using our [vdemdata R package](https://github.com/vdeminstitute/vdemdata) since one huge advantage of the package is that it allows to flexibly set parameters for generating the ERT dataset.
-
-#### For details see the attached ERT Codebook.
 
 
+An R package to load, explore, and work with the Episodes of Regime Transformation (ERT) dataset - a project of the [V-Dem Institute](https://www.v-dem.net/en/).
 
-## V-Dem: Global Standards, Local Knowledge ##
 
-Varieties of Democracy (V-Dem) is a new approach to conceptualizing and measuring democracy. We provide a multidimensional and disaggregated dataset that reflects the complexity of the concept of democracy as a system of rule that goes beyond the simple presence of elections. The V-Dem project distinguishes between five high-level principles of democracy: electoral, liberal, participatory, deliberative, and egalitarian, and collects data to measure these principles. 
+## Episodes of Regime Transformation (ERT) ##
 
-We are a team of over 50 social scientists on six continents. We work with more than 3,000 country experts and a truly global International Advisory Board. [Read more about the work we do here](https://www.v-dem.net/en/).
+#### Load, explore, and work with the ERT dataset (for details see also the [ERT Codebook](https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook.pdf)): ####
+
+* NOTE: for non-R users we provide [the ERT dataset here as csv. file](https://github.com/vdeminstitute/ERT/blob/master/inst/ERT.csv) - however, we recommend loading the ERT dataset via the package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.
+
+#### Functions ####
+* `get_eps`: Identify episodes of regime transitions (autocratization, democratization) in the most recent V-dem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies [(cf. Lührmann and Lindberg, Democratization, 2019)](https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029). Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2020)](https://www.v-dem.net/en/news-publications/working-papers/)
+* `find_overlap`: Find potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
+* `fix_overlap`: Interactive function to fix potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
+* `plot_episode`: Plot Episodes of Regime Transitions (ERT) over time.
+
+## Installation ##
+
+```
+# Install the development version of the ERT package 
+# (since this package is still an ongoing project, 
+# keep checking for updates, new functions, etc.!)
+
+# First, you need to have the devtools package installed
+install.packages("devtools")
+# now, install the ERT package directly from GitHub
+devtools::install_github("vdeminstitute/ERT")
+
+# NOTE: make sure you have an updated R version (> 3.5) and
+# - since the package is still a development version - 
+# an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
+# installed. If you have troubles with the installation 
+# write to the package maintainer seraphine.maerz@v-dem.net
+```
+
+
