@@ -14,7 +14,7 @@
 #' #overlap <- find_overlap(episodes)
 #'
 find_overlap <-function(
-  episodes = vdemdata::get_eps())
+  episodes = ERT::get_eps())
 {
   aut_ep <- country_name <- year <- dem_ep <- NULL
   merged <- episodes

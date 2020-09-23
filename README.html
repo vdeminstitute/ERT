@@ -371,13 +371,13 @@ summary {
 <div id="load-explore-and-work-with-the-ert-dataset-for-details-see-also-the-ert-codebook" class="section level4">
 <h4>Load, explore, and work with the ERT dataset (for details see also the <a href="https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook.pdf">ERT Codebook</a>):</h4>
 <ul>
-<li>NOTE: for non-R users we provide <a href="https://github.com/vdeminstitute/ERT/blob/master/inst/ERT.csv">the ERT dataset here as csv. file</a> - however, we recommend loading the ERT dataset via the package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.</li>
+<li>NOTE: for non-R users we provide <a href="https://github.com/vdeminstitute/ERT/blob/master/inst">the ERT dataset here as csv. file</a> - however, we recommend loading the ERT dataset via the package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.</li>
 </ul>
 </div>
 <div id="functions" class="section level4">
 <h4>Functions</h4>
 <ul>
-<li><code>get_eps</code>: Identify episodes of regime transitions (autocratization, democratization) in the most recent V-dem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies <a href="https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029">(cf. Lührmann and Lindberg, Democratization, 2019)</a>. Democratization is defined as any movement towards democracy which starts in autocracies or democracies <a href="https://www.v-dem.net/en/news-publications/working-papers/">(cf. Wilson et al., 2020)</a></li>
+<li><code>get_eps</code>: Identify episodes of regime transitions (autocratization, democratization) in the most recent V-dem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies <a href="https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029">(cf. Lührmann and Lindberg, Democratization, 2019)</a>. Democratization is defined as any movement towards democracy which starts in autocracies or democracies <a href="https://www.v-dem.net/media/filer_public/40/01/40014eba-6f42-467c-b693-15221e210415/wp_97_final.pdf">(cf. Wilson et al., 2020)</a></li>
 <li><code>find_overlap</code>: Find potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.</li>
 <li><code>fix_overlap</code>: Interactive function to fix potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.</li>
 <li><code>plot_episode</code>: Plot Episodes of Regime Transitions (ERT) over time.</li>

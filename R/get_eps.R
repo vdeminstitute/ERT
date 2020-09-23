@@ -54,7 +54,7 @@
 #' #episodes <- get_eps()
 #'
 ### set the parameters ###
-get_eps <- function(data = vdemdata::vdem,
+get_eps <- function(data = ERT::vdem,
                              start_incl = 0.01,
                              cum_incl = 0.1,
                              year_turn = 0.03,    # NOTE: year_turn is implemented in the c++ script but still needs to be setted here, otherwise it cannot be changed by user of package´

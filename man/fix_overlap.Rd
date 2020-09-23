@@ -4,10 +4,7 @@
 \alias{fix_overlap}
 \title{An interactive function to fix the overlap between episodes of democratization and autocratization.}
 \usage{
-fix_overlap(
-  episodes = vdemdata::get_eps(),
-  overlap = vdemdata::find_overlap(episodes)
-)
+fix_overlap(episodes = ERT::get_eps(), overlap = ERT::find_overlap(episodes))
 }
 \arguments{
 \item{episodes}{The outcome of get_eps(), episodes of regime transformation (ERT), to be used for fixing potential overlaps (depending on individual parameter setting). By default with standard parameters.}

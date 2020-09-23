@@ -4,7 +4,7 @@
 \alias{find_overlap}
 \title{Find the overlap between episodes of democratization and autocratization.}
 \usage{
-find_overlap(episodes = vdemdata::get_eps())
+find_overlap(episodes = ERT::get_eps())
 }
 \arguments{
 \item{episodes}{The outcome of get_eps(), episodes of regime transformation (ERT), to be used for finding potential overlaps (depending on individual parameter setting). By default with standard parameters.}

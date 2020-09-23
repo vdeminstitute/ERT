@@ -16,8 +16,8 @@
 #' #fix_overlap(episodes)
 #'
 fix_overlap <- function(
-  episodes = vdemdata::get_eps(),
-  overlap = vdemdata::find_overlap(episodes))
+  episodes = ERT::get_eps(),
+  overlap = ERT::find_overlap(episodes))
 {
   menu <- year <- country_name <- v2x_regime <- v2x_polyarchy <- merged_dat <- NULL
   merged <- episodes

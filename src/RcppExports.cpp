@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // find_seqs_aut
 NumericVector find_seqs_aut(NumericVector v, NumericVector r, NumericVector t, double start_incl, double year_turn, double cum_turn, int tolerance);
-RcppExport SEXP _vdemdata_find_seqs_aut(SEXP vSEXP, SEXP rSEXP, SEXP tSEXP, SEXP start_inclSEXP, SEXP year_turnSEXP, SEXP cum_turnSEXP, SEXP toleranceSEXP) {
+RcppExport SEXP _ERT_find_seqs_aut(SEXP vSEXP, SEXP rSEXP, SEXP tSEXP, SEXP start_inclSEXP, SEXP year_turnSEXP, SEXP cum_turnSEXP, SEXP toleranceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -24,7 +24,7 @@ END_RCPP
 }
 // find_seqs_dem
 NumericVector find_seqs_dem(NumericVector v, NumericVector r, NumericVector t, double start_incl, double year_turn, double cum_turn, int tolerance);
-RcppExport SEXP _vdemdata_find_seqs_dem(SEXP vSEXP, SEXP rSEXP, SEXP tSEXP, SEXP start_inclSEXP, SEXP year_turnSEXP, SEXP cum_turnSEXP, SEXP toleranceSEXP) {
+RcppExport SEXP _ERT_find_seqs_dem(SEXP vSEXP, SEXP rSEXP, SEXP tSEXP, SEXP start_inclSEXP, SEXP year_turnSEXP, SEXP cum_turnSEXP, SEXP toleranceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -41,12 +41,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_vdemdata_find_seqs_aut", (DL_FUNC) &_vdemdata_find_seqs_aut, 7},
-    {"_vdemdata_find_seqs_dem", (DL_FUNC) &_vdemdata_find_seqs_dem, 7},
+    {"_ERT_find_seqs_aut", (DL_FUNC) &_ERT_find_seqs_aut, 7},
+    {"_ERT_find_seqs_dem", (DL_FUNC) &_ERT_find_seqs_dem, 7},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_vdemdata(DllInfo *dll) {
+RcppExport void R_init_ERT(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

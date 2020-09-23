@@ -5,7 +5,7 @@
 \title{Get episodes of regime transformation (ERT)}
 \usage{
 get_eps(
-  data = vdemdata::vdem,
+  data = ERT::vdem,
   start_incl = 0.01,
   cum_incl = 0.1,
   year_turn = 0.03,
