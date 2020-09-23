@@ -7,7 +7,7 @@
 #' This function is a wrapper for [ggplot2:ggplot()] and produces a plot that shows
 #' democratization and autocratization episodes over time.
 #' Either the global number/share of countries undergoing democratization and autocratization or
-#' episodes for an individual country are plotted. The function calls the [vdemdata:get_eps()] funtion that is
+#' episodes for an individual country are plotted. The function calls the [ERT:get_eps()] funtion that is
 #' used to identify episodes.
 #'
 #' @param abs Logical value: if TRUE, the absolute number of countries in an episode for each year is plotted. If FALSE, the share
@@ -42,7 +42,7 @@
 #' @examples
 #' \dontrun{
 #' # Plot autocratization and democratization episodes over time using
-#'  default values from [vdemdata:get_eps()].
+#'  default values from [ERT:get_eps()].
 #'
 #'  plot_episodes()
 #'
@@ -61,7 +61,7 @@ plot_episodes <- function(abs = T,
                           cum_turn = 0.1,
                           tolerance = 5) {
 
-  eps <- vdemdata::get_eps(data = vdemdata::vdem,
+  eps <- ERT::get_eps(data = ERT::vdem,
                       start_incl = start_incl,
                       cum_incl = cum_incl,
                       year_turn = year_turn,
