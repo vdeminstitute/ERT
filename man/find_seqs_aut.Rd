@@ -15,7 +15,7 @@ find_seqs_aut(
 )
 }
 \description{
-This is a subfunction (c++) of vdemdata::get_aut see the
-documentation of vdemdata::get_aut (?get_aut) for details on
+This is a subfunction (c++) of ERT::get_eps see the
+documentation of ERT::get_aut (?get_eps) for details on
 parameters, etc.
 }

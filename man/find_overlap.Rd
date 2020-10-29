@@ -7,10 +7,11 @@
 find_overlap(episodes = ERT::get_eps())
 }
 \arguments{
-\item{episodes}{The outcome of get_eps(), episodes of regime transformation (ERT), to be used for finding potential overlaps (depending on individual parameter setting). By default with standard parameters.}
+\item{episodes}{The outcome of get_eps(), Episodes of Regime Transformation (ERT), 
+to be used for finding potential overlaps (depending on individual parameter setting). By default with standard parameters.}
 }
 \value{
-A data frame showing the country/year of overlaps between democratization and autocratization episodes.
+A summary message and data frame showing the overlaps between democratization and autocratization episodes.
 }
 \description{
 Find the overlap between episodes of democratization and autocratization.

@@ -25,21 +25,38 @@ of countries (in \%) undergoing democratization or autocratization is plotted.}
 country_name column in the V-Dem data set are accepted. If no countries are specified, global episode numbers
 are plotted. Only a single country can be selected.}
 
-\item{start_incl}{A threshold for detecting the onset of "potential" episodes.
-By default a change in the EDI (Vdem's Electoral Democracy Index) of at least +/-0.01 from year(t-1) to year(t).}
+\item{start_incl}{What is the minimum annual change on V-Dem's Electoral Democracy Index (EDI) necessary to trigger an episode? 
+This is the absolute value of the first difference in the EDI required for the onset 
+of either a democratization (+) or autocratization episode (–).}
 
-\item{cum_incl}{A threshold to identify a "manifest" episodes as a cumulative change of the EDI (Vdem's Electoral Democracy Index)
-between the start and end of a sequence. By default a cumulative change of +/-0.1 on the EDI.}
+\item{cum_incl}{What is the minimum amount of total change on the EDI necessary to constitute a manifest episode?
+A potential episode might be a period involving any amount of changes over a period following an annual change equal 
+to the start inclusion (e.g. 0.01). To identify substantial changes, we set a cumulative inclusion threshold. 
+This is the absolute value of the total amount of change needed on the EDI to be considered manifest.}
 
-\item{year_turn}{A threshold to identify a sudden "turn" during a year of an ongoing episode (=failed democratization/autocratization).
-By default a yearly change of +/-0.03 on the EDI (Vdem's Electoral Democracy Index). Note: Advanced users who wish to remove this criteria altogether
-should set the value of year turn equal to cum turn. Setting this to zero would allow for an episode to terminate when any year of no change is encountered.}
+\item{year_turn}{What is the amount of annual change in the opposite direction to trigger the termination of an episode? 
+An episode may end when the case suddenly moves in the opposite direction. 
+For example, during an episode of democratization, a country may experience a sudden drop on the EDI. 
+This could signal the onset of an autocratization episode. To avoid overlap between episodes, 
+we set the absolute value of a change in the opposite direction on the EDI 
+as a trigger for the termination of an episode. \emph{Note: Advanced users who wish to remove this criteria altogether 
+should set the value of year\_turn equal to cum\_turn. 
+Setting this to zero would allow for an episode to terminate when any year of no change is encountered.}}
 
-\item{cum_turn}{A threshold to identify a gradual "turn" during an ongoing episode (=failed democratization/autocratization).
-By default a cumulative change of -0.1 on the EDI (Vdem's Electoral Democcracy Index) between the start and end of a sequence.}
+\item{cum_turn}{What is the amount of gradual change in the opposite direction to trigger the termination of an episode?
+An episode may end when the case begins moving in the opposite direction gradually. For example, 
+during an episode of democratization, a country may experience a gradual drop on the EDI over a number of years 
+that signals democratization has ended. This could also signal the onset of an autocratization episode. 
+To avoid overlap between episodes, we set the absolute value of a gradual change in the opposite direction 
+on the EDI over the tolerance period (e.g. 5 years) as a trigger for the termination of an episode.}
 
-\item{tolerance}{A threshold to specify the number of "stasis" observations (\emph{i.e.}, observations neither increasing
-or decreasing significantly) permitted before stopping a sequence. By default 5 years.}
+\item{tolerance}{What is the number of years considered as tolerance for stasis or a gradual movement in the opposite direction?
+The tolerance defines the number of years an episode is allowed to remain in stasis 
+(i.e. no more movements equal to the start inclusion) and/or move in the opposite direction before it is terminated. 
+This parameter also defines the number of years necessary for a case to be considered a democratic breakdown or 
+stabilized electoral autocracy. \emph{Therefore, care is necessary when manipulating the default value. 
+This could lead to large changes in the composition of episodes. 
+We set the default to 5 years because this is the typical amount for an electoral cycle for most countries.}}
 }
 \value{
 The output of this function is a [ggplot2:ggplot()] object with global or country-specific episodes.

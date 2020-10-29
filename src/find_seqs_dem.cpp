@@ -15,8 +15,8 @@ using namespace std;
 
 //' Identify sequences of potential democratization episodes
 //'
-//' This is a subfunction (c++) of vdemdata::get_dem see the
-//' documentation of vdemdata::get_dem (?get_dem) for details on
+//' This is a subfunction (c++) of ERT::get_eps see the
+//' documentation of ERT::get_eps (?get_eps) for details on
 //' parameters, etc.
 //'
 //[[Rcpp::export]]

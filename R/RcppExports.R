@@ -3,8 +3,8 @@
 
 #' Identify sequences of potential autocratization episodes
 #'
-#' This is a subfunction (c++) of vdemdata::get_aut see the
-#' documentation of vdemdata::get_aut (?get_aut) for details on
+#' This is a subfunction (c++) of ERT::get_eps see the
+#' documentation of ERT::get_aut (?get_eps) for details on
 #' parameters, etc.
 #'
 find_seqs_aut <- function(v, r, t, start_incl = -0.01, year_turn = 0.03, cum_turn = 0.1, tolerance = 5L) {
@@ -13,8 +13,8 @@ find_seqs_aut <- function(v, r, t, start_incl = -0.01, year_turn = 0.03, cum_tur
 
 #' Identify sequences of potential democratization episodes
 #'
-#' This is a subfunction (c++) of vdemdata::get_dem see the
-#' documentation of vdemdata::get_dem (?get_dem) for details on
+#' This is a subfunction (c++) of ERT::get_eps see the
+#' documentation of ERT::get_eps (?get_eps) for details on
 #' parameters, etc.
 #'
 find_seqs_dem <- function(v, r, t, start_incl = 0.01, year_turn = -0.03, cum_turn = -0.1, tolerance = 5L) {
