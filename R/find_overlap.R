@@ -26,6 +26,13 @@ find_overlap <-function(
   dem <- merged  %>% filter(dem_ep == 1) %>% dplyr::select(country_name, country_text_id, year, aut_ep_id, dem_ep_id)
   overlap1 <- rbind(aut,dem)[duplicated(rbind(aut,dem)),]
   
+  # Stop if there are no overlapping episodes
+  if(nrow(overlap1) == 0) {
+   print("No overlapping episodes in the data.")
+  }
+  
+  if(nrow(overlap1) > 0) {
+    
   # Identify sequences of overlapping years 
   overlap <- overlap1 %>% 
     arrange(country_name, year) %>% 
@@ -47,4 +54,5 @@ find_overlap <-function(
                length(unique(overlap$country_name)), " countries in the episodes data."))
   
   return(overlap)
+  }
 }
