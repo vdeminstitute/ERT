@@ -686,7 +686,7 @@ get_eps <- function(data = ERT::vdem,
     # select the variables we need to keep
     dplyr::filter(!is.na(origsample)) %>%
     dplyr::select(country_id, country_text_id, country_name, year, v2x_regime, v2x_polyarchy, v2x_polyarchy_codelow, v2x_polyarchy_codehigh,
-                  reg_start_year, reg_end_year, reg_id, reg_type, reg_trans, founding_elec, row_regch_event, row_regch_censored,
+                  reg_start_year, reg_end_year, reg_id, reg_type, reg_trans, dem_founding_elec, aut_founding_elec, row_regch_event, row_regch_censored,
                   dem_ep, dem_ep_id, dem_ep_start_year, dem_ep_end_year, dem_pre_ep_year, dem_ep_termination,
                   #sub_dem_ep, sub_dem_ep_id, sub_dem_ep_start_year, sub_dem_ep_end_year, 
                   dem_ep_prch, dem_ep_ptr, dem_ep_subdep, 
