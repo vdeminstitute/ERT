@@ -404,7 +404,7 @@ get_eps <- function(data = ERT::vdem,
   # here we generate a variable capturing whether the episode had the potential for a regime change 
   dplyr::group_by(dem_ep_id) %>%
     # to do so we look for the regime type in the pre-episode year, and if it was autocratic, we consider this episode to have the potential for regime change
-    dplyr::mutate(dem_ep_prch = ifelse(!is.na(dem_ep_id), 1-dplyr::first(reg_type, order_by= year), 0),
+    dplyr::mutate(dem_ep_prch = ifelse(!is.na(dem_ep_id), 1-dplyr::first(reg_type, order_by= year), NA),
                   # did a regime change on RoW during the episode produce a genuine democratic transition?
                   dem_ep_outcome = ifelse(dem_ep_prch==1 & reg_trans==1 & dem_pre_ep_year==0, 1, NA),
                   # did a regime change on RoW during the episode fail to produce a democratic transition?
@@ -438,9 +438,15 @@ get_eps <- function(data = ERT::vdem,
       dem_ep_outcome == 6 ~ 4,
       dem_ep_outcome == 0 ~ 0),
       # add variable for post-transition years within the episode
-      dem_ep_ptr = ifelse(dem_ep_outcome == 1 & reg_type==1 & reg_trans !=1, 1, 0),
+      dem_ep_ptr = dplyr::case_when(
+                        dem_ep_outcome == 1 & reg_type==1 & reg_trans !=1 ~ 1, #condition when variable is supposed to be 1
+                        dem_ep == 0 ~ NA_real_, # if in episode == 0
+                        T ~ 0), # rest is NA
       # add variable for episodes that have both transition and deepening
-      dem_ep_subdep = ifelse(dem_ep_outcome==1 & max(hablar::s(dem_ep_ptr == 1)), 1, 0)) %>%
+      dem_ep_subdep = dplyr::case_when(
+        dem_ep_outcome==1 & max(hablar::s(dem_ep_ptr == 1)) ~ 1, #condition when variable is supposed to be 1
+        dem_ep == 0 ~ NA_real_, # if in episode == 0
+        T ~ 0)) %>%  # rest is NA
     dplyr::group_by(country_text_id) %>%
     dplyr::arrange(country_id, year) %>%
     dplyr::select(-stasis)
@@ -617,7 +623,7 @@ get_eps <- function(data = ERT::vdem,
   # here we generate a variable capturing whether the episode had the potential for a regime change 
   dplyr::group_by(aut_ep_id) %>%
     # to do so we look for the regime type in the pre-episode year, and if it was autocratic, we consider this episode to have the potential for regime change
-    dplyr::mutate(aut_ep_prch = ifelse(!is.na(aut_ep_id), dplyr::first(reg_type, order_by= year), 0),
+    dplyr::mutate(aut_ep_prch = ifelse(!is.na(aut_ep_id), dplyr::first(reg_type, order_by= year), NA),
                   # then we code the outcomes:
                   # did a regime change on RoW during the episode produce a genuine democratic breakdown?
                   aut_ep_outcome = ifelse(aut_ep_prch==1 & reg_trans==-1 & aut_pre_ep_year==0, 1, NA),
@@ -652,9 +658,15 @@ get_eps <- function(data = ERT::vdem,
       aut_ep_outcome == 6 ~ 4,
       aut_ep_outcome == 0 ~ 0),
       # add variable for post-breakdown years within the episode
-      aut_ep_pbr = ifelse(aut_ep_outcome == 1 & reg_type==0 & reg_trans !=-1, 1, 0),
+      aut_ep_pbr = dplyr::case_when(
+        aut_ep_outcome == 1 & reg_type==0 & reg_trans !=-1 ~ 1, #condition when variable is supposed to be 1
+        aut_ep == 0 ~ NA_real_, # if in episode == 0
+        T ~ 0), # rest is NA
       # add variable for episodes that have both breakdown and autocratic regression
-      aut_ep_subreg = ifelse(aut_ep_outcome==1 & max(hablar::s(aut_ep_pbr == 1)), 1, 0)) %>%
+      aut_ep_subreg = dplyr::case_when(
+        aut_ep_outcome ==1 & max(hablar::s(aut_ep_pbr == 1)) ~ 1, #condition when variable is supposed to be 1
+        aut_ep == 0 ~ NA_real_, # if in episode == 0
+        T ~ 0)) %>%  # rest is NA
     dplyr::group_by(country_text_id) %>%
     dplyr::arrange(country_id, year) %>%
     
@@ -663,9 +675,9 @@ get_eps <- function(data = ERT::vdem,
     dplyr::mutate(dem_ep = ifelse(dem_pre_ep_year==1, 0, dem_ep),
                   dem_ep_termination = ifelse(dem_pre_ep_year==1, NA, dem_ep_termination),
                   # sub_dem_ep = ifelse(dem_pre_ep_year==1, 0, sub_dem_ep),
-                  dem_ep_prch = ifelse(dem_pre_ep_year==1, 0, dem_ep_prch),
-                  dem_ep_ptr = ifelse(dem_pre_ep_year==1, 0, dem_ep_ptr), 
-                  dem_ep_subdep = ifelse(dem_pre_ep_year==1, 0, dem_ep_subdep),
+                  dem_ep_prch = ifelse(dem_pre_ep_year==1, NA, dem_ep_prch),
+                  dem_ep_ptr = ifelse(dem_pre_ep_year==1, NA, dem_ep_ptr), 
+                  dem_ep_subdep = ifelse(dem_pre_ep_year==1, NA, dem_ep_subdep),
                   dem_ep_outcome_all = dem_ep_outcome,
                   dem_ep_outcome = ifelse(dem_pre_ep_year==1, 0, dem_ep_outcome),
                   dem_ep_outcome_agg = ifelse(dem_pre_ep_year==1, 0, dem_ep_outcome_agg),
@@ -674,9 +686,9 @@ get_eps <- function(data = ERT::vdem,
                   aut_ep = ifelse(aut_pre_ep_year==1, 0, aut_ep),
                   aut_ep_termination = ifelse(aut_pre_ep_year==1, NA, aut_ep_termination),
                   # sub_aut_ep = ifelse(aut_pre_ep_year==1, 0, sub_aut_ep),
-                  aut_ep_prch = ifelse(aut_pre_ep_year==1, 0, aut_ep_prch),
-                  aut_ep_pbr = ifelse(aut_pre_ep_year==1, 0, aut_ep_pbr), 
-                  aut_ep_subreg = ifelse(aut_pre_ep_year==1, 0, aut_ep_subreg),
+                  aut_ep_prch = ifelse(aut_pre_ep_year==1, NA, aut_ep_prch),
+                  aut_ep_pbr = ifelse(aut_pre_ep_year==1, NA, aut_ep_pbr), 
+                  aut_ep_subreg = ifelse(aut_pre_ep_year==1, NA, aut_ep_subreg),
                   aut_ep_outcome_all = aut_ep_outcome,
                   aut_ep_outcome = ifelse(aut_pre_ep_year==1, 0, aut_ep_outcome),
                   aut_ep_outcome_agg = ifelse(aut_pre_ep_year==1, 0, aut_ep_outcome_agg),
