@@ -1,7 +1,7 @@
 Package: ERT
 Type: Package
 Title: Provides the Episodes of Regime Transformation dataset
-Version: 2.0
+Version: 3.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
              person("Joshua", "Krusell", email = "js.shirin@gmail.com", role = c("aut")),
