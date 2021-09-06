@@ -418,6 +418,9 @@ get_eps <- function(data = ERT::vdem,
                   dem_ep_outcome = ifelse(dem_ep_prch==1 & year==dem_ep_end_year &
                                             (dem_ep_termination==2 | dem_ep_termination==3 | dem_ep_termination==4) &
                                             is.na(dem_ep_outcome), 4, dem_ep_outcome),
+                  # did the case never move from closed autocracy (failed liberalization)?
+                  dem_ep_outcome = ifelse(dem_ep_prch==1 & year==dem_ep_end_year & 
+                                            max(v2x_regime)==0 & dem_ep_uncertain!=1, 4, dem_ep_outcome),
                   # code the outcome for completed democratic deepening
                   dem_ep_outcome = ifelse(dem_ep_prch==0 & year==dem_ep_end_year &
                                             is.na(dem_ep_outcome), 5, dem_ep_outcome),
@@ -638,6 +641,9 @@ get_eps <- function(data = ERT::vdem,
                   aut_ep_outcome = ifelse(aut_ep_prch==1 & year==aut_ep_end_year &
                                             (aut_ep_termination==2 | aut_ep_termination==3 | aut_ep_termination==4) &
                                             is.na(aut_ep_outcome), 4, aut_ep_outcome),
+                  # did the democratic regression episode never fall below liberal democracy (averted regression)?
+                  aut_ep_outcome = ifelse(aut_ep_prch==1 & year==aut_ep_end_year & 
+                                            min(v2x_regime)==3 & aut_ep_uncertain==0, 4, aut_ep_outcome),
                   # code the outcome for completed autocratic regression
                   aut_ep_outcome = ifelse(aut_ep_prch==0 & year==aut_ep_end_year &
                                             is.na(aut_ep_outcome), 5, aut_ep_outcome),
