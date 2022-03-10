@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // find_seqs_aut
 NumericVector find_seqs_aut(NumericVector v, NumericVector r, NumericVector t, double start_incl, double year_turn, double cum_turn, int tolerance);
 RcppExport SEXP _ERT_find_seqs_aut(SEXP vSEXP, SEXP rSEXP, SEXP tSEXP, SEXP start_inclSEXP, SEXP year_turnSEXP, SEXP cum_turnSEXP, SEXP toleranceSEXP) {
