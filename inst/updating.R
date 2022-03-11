@@ -39,4 +39,20 @@ devtools::check()
 
 # push to your personal rep
 # do a pull request to the original rep
+
+#### Release #####
+# Go to the repository on Github at https://github.com/vdeminstitute/ERT
+
+# Click on "releases" on the right; you see a list with all previous releases
+
+# Click on "Draft a new release"
+
+# Choose a new tag for the release (e.g., V4.0, V4.1, V5.0)
+
+# Select a title for the release and adjust the description 
+# (mostly copy-paste from last release to keep it consistent)
+# You can use the "save draft" and "preview" buttons to make sure the release looks good
+
+# Click on "publish release"
+
 # all done and up-to-date :-)
