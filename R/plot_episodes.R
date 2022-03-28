@@ -95,14 +95,15 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
 
   if(length(country) > 0) {
     eps_year <- eps %>%
-      filter(country_name == country, between(year, min(years), max(years))) %>%
-      filter(dem_ep == 1 | aut_ep == 1) %>%
-      mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlaps", NA)) %>%
-      pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
-      select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
+      dplyr::filter(country_name == country, dplyr::between(year, min(years), max(years))) %>%
+      dplyr::filter(dem_ep == 1 | aut_ep == 1) %>%
+      dplyr::mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlaps", NA)) %>%
+      {if(nrow(.) == 0) print("No episodes during selected time period. No plot generated") else .} %>% 
+      tidyr::pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
+      dplyr::select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
              aut_ep_start_year, aut_ep_end_year, dem_ep_start_year, dem_ep_end_year,
              aut_pre_ep_year, dem_pre_ep_year) %>%
-      filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
+      dplyr::filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
              (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
               ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
