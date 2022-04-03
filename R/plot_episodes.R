@@ -101,18 +101,31 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
       {if(nrow(.) == 0) print("No episodes during selected time period. No plot generated") else .} %>% 
       tidyr::pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
       dplyr::select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
-             aut_ep_start_year, aut_ep_end_year, dem_ep_start_year, dem_ep_end_year,
-             aut_pre_ep_year, dem_pre_ep_year) %>%
+             aut_ep_start_year, aut_ep_end_year, aut_ep_outcome,
+             dem_ep_start_year, dem_ep_end_year,
+             aut_pre_ep_year, dem_pre_ep_year, dem_ep_outcome) %>%
       dplyr::filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
              (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
               ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
       group_by(year) %>%
       mutate(overlap_eps = n(),
-             episode_id = ifelse(ep_type == "aut_ep_id", str_sub(episode, 5, 13), episode),
-             episode_id = ifelse(ep_type == "dem_ep_id", str_sub(episode, 5, 13), episode_id),
-             episode_id = ifelse(ep_type == "aut_ep_id", paste0("AUT:", episode_id), episode_id),
-             episode_id = ifelse(ep_type == "dem_ep_id", paste0("DEM:", episode_id), episode_id)) %>%
+             outcome_dem_ep = case_when(dem_ep_outcome == 1 ~ "Democratic transition",
+                                        dem_ep_outcome == 2 ~ "Preempted democratic transition",
+                                        dem_ep_outcome == 3 ~ "Stabilized electoral autocracy",
+                                        dem_ep_outcome == 4 ~ "Reverted libralization",
+                                        dem_ep_outcome == 5 ~ "Deepened democracy",
+                                        dem_ep_outcome == 6 ~ "Outcome censored",
+                                        T ~ NA_character_),
+             outcome_aut_ep = case_when(aut_ep_outcome == 1 ~ "Democratic breakdown",
+                                        aut_ep_outcome == 2 ~ "Preempted democratic breakdown",
+                                        aut_ep_outcome == 3 ~ "Diminished democracy",
+                                        aut_ep_outcome == 4 ~ "Averted regression",
+                                        aut_ep_outcome == 5 ~ "Regressed autocracy",
+                                        aut_ep_outcome == 6 ~ "Outcome censored",
+                                        T ~ NA_character_),
+             episode_id = ifelse(ep_type == "aut_ep_id", paste0("AUT: ", aut_ep_start_year, "-", aut_ep_end_year, " ", outcome_aut_ep), episode),
+             episode_id = ifelse(ep_type == "dem_ep_id", paste0("DEM: ", dem_ep_start_year, "-", dem_ep_end_year, " ", outcome_dem_ep), episode_id)) %>%
       ungroup()
 
     polyarchy <- eps %>%
@@ -126,7 +139,7 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
 
  p <-   ggplot2::ggplot() +
           geom_line(data = eps_year, aes(group = episode_id, color = episode_id, linetype = ep_type,x = year, y = v2x_polyarchy)) +
-          geom_line(data = polyarchy, aes(x = year, y = v2x_polyarchy), alpha = 0.3) +
+          geom_line(data = polyarchy, aes(x = year, y = v2x_polyarchy), alpha = 0.35) +
           scale_colour_grey(breaks = levels(factor(eps_year$episode_id[eps_year$episode_id!="overlaps"])),
                         name = "Episode", start = 0.01, end = 0.01) +
           scale_linetype_manual(name = "Episode type", breaks = c("aut_ep_id", "dem_ep_id", "overlaps"),
@@ -134,7 +147,7 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
                      values = c("dashed", "dotted", "solid")) +
           scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
           xlab("Year") +  ylab("Electoral Democracy Index") + ylim(0,1) +
-          theme_classic() +
+          theme_bw() +
           guides(color = guide_legend(override.aes = list(size = 0))) +
           ggtitle(sprintf("%s", country))
 
