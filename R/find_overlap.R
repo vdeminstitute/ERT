@@ -14,14 +14,20 @@
 #'
 #' #overlap <- find_overlap(episodes)
 #'
-find_overlap <-function(
+find_overlap <-function(start_incl  = 0.01,
+                        cum_incl  = 0.1,
+                        year_turn = 0.03,
+                        cum_turn = 0.1,
+                        tolerance = 5)
+{
+  
   episodes = ERT::get_eps(data = ERT::vdem,
                           start_incl = start_incl,
                           cum_incl = cum_incl,
                           year_turn = year_turn,
                           cum_turn = cum_turn,
-                          tolerance = tolerance))
-{
+                          tolerance = tolerance)
+  
   aut_ep <- country_name <- year <- dem_ep <- country_text_id <- aut_ep_id <- dem_ep_id <- year_diff <-
     conseq_episode <- overlap_counter <- overlap_period <- NULL
   
