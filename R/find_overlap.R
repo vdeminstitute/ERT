@@ -15,7 +15,12 @@
 #' #overlap <- find_overlap(episodes)
 #'
 find_overlap <-function(
-  episodes = ERT::get_eps())
+  episodes = ERT::get_eps(data = ERT::vdem,
+                          start_incl = start_incl,
+                          cum_incl = cum_incl,
+                          year_turn = year_turn,
+                          cum_turn = cum_turn,
+                          tolerance = tolerance))
 {
   aut_ep <- country_name <- year <- dem_ep <- country_text_id <- aut_ep_id <- dem_ep_id <- year_diff <-
     conseq_episode <- overlap_counter <- overlap_period <- NULL
