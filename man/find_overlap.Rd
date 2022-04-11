@@ -4,7 +4,13 @@
 \alias{find_overlap}
 \title{Find the overlap between episodes of democratization and autocratization.}
 \usage{
-find_overlap(episodes = ERT::get_eps())
+find_overlap(
+  start_incl = 0.01,
+  cum_incl = 0.1,
+  year_turn = 0.03,
+  cum_turn = 0.1,
+  tolerance = 5
+)
 }
 \arguments{
 \item{episodes}{The outcome of get_eps(), Episodes of Regime Transformation (ERT), 
