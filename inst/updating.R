@@ -23,6 +23,7 @@ save("codebook", file = "data/codebook.RData")
 # document new package version
 Rcpp::compileAttributes() 
 devtools::document()
+devtools::clean_dll()
 
 # save dataset as csv in "inst" folder
 episodes <- get_eps()
