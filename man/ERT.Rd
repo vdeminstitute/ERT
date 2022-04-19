@@ -8,8 +8,8 @@
 A package to load, expore and work with the Episodes of Regime Transformation dataset.
 }
 \references{
-\url{https://github.com/vdeminstitute/ERT} and \url{https://www.v-dem.net/en/}
+\url{https://github.com/vdeminstitute/ERT} and \url{https://www.v-dem.net}
 }
 \author{
-Seraphine F. Maerz (package creater and maintainer, seraphine.maerz@v-dem.net), Amanda B. Edgell, Joshua Krusell, Laura Maxwell, Sebastian Hellmeier
+Seraphine F. Maerz (package creater and maintainer, maerz@soz.uni-frankfurt.de), Amanda B. Edgell, Joshua Krusell, Laura Maxwell, Sebastian Hellmeier
 }
