@@ -69,44 +69,74 @@
 #'                years = c(1910, 2010))
 #' }
 #' @export
-plot_episodes <- function(abs = T,
-                          years = c(1900, 2020),
+
+
+#A nice feature for the first function would be to plot democracy scores without episodes if there are no episodes in the selected timeframe (currently we have the error message which is needed due to the error message) Maybe you could check this out.
+
+
+plot_episodes <- function(years = c(1900, 2021),
                           country = c(),
                           start_incl  = 0.01,
                           cum_incl  = 0.1,
                           year_turn = 0.03,
                           cum_turn = 0.1,
                           tolerance = 5) {
-
+  
   eps <- ERT::get_eps(data = ERT::vdem,
                       start_incl = start_incl,
                       cum_incl = cum_incl,
                       year_turn = year_turn,
                       cum_turn = cum_turn,
                       tolerance = tolerance)
+  
 
+  stopifnot(is.numeric(years), length(years) == 2, years[2] > years[1])
+  
+  stopifnot(is.character(country))
+  
   if(length(country) > 1)
     stop("Error: More than one country selected")
+  
+  if(length(country) == 0)
+    stop("Error: No country selected")
+  
+  if(!country %in% ERT::vdem$country_name)
+    stop("Error: Country not found")
+  
+  if(max(years) < min(eps %>% filter(country_name==country) %>% pull(year)) | max(years)>max(eps %>% filter(country_name==country) %>% pull(year)))
+    stop("Error: Data not available for time range")
+  
+  stopifnot(is.numeric(start_incl), length(start_incl) == 1)
+  
+  stopifnot(is.numeric(cum_incl), length(cum_incl) == 1)
+  
+  stopifnot(is.numeric(year_turn), length(year_turn) == 1)
+  
+  stopifnot(is.numeric(cum_turn), length(cum_turn) == 1)
+  
+  stopifnot(is.numeric(tolerance), length(tolerance) == 1)
+  
 
-year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2x_polyarchy <-
-  ep_type <- episode <- vdem <- aut_ep_start_year <- aut_ep_end_year <-
-  dem_ep_start_year <- dem_ep_end_year <- aut_pre_ep_year <-
-  dem_pre_ep_year <- episode_id <- countries <- NULL
-
-  if(length(country) > 0) {
+  year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2x_polyarchy <-
+    ep_type <- episode <- vdem <- aut_ep_start_year <- aut_ep_end_year <-
+    dem_ep_start_year <- dem_ep_end_year <- aut_pre_ep_year <-
+    dem_pre_ep_year <- episode_id <- countries <- NULL
+ 
     eps_year <- eps %>%
       dplyr::filter(country_name == country, dplyr::between(year, min(years), max(years))) %>%
-      dplyr::filter(dem_ep == 1 | aut_ep == 1) %>%
-      dplyr::mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlaps", NA)) %>%
-      {if(nrow(.) == 0) print("No episodes during selected time period. No plot generated") else .} %>% 
+      dplyr::filter(dem_ep == 1 | aut_ep == 1) 
+
+    if(nrow(eps_year)>1){
+      eps_year <- eps_year %>% 
+      dplyr::mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlaps", NA)) %>% 
       tidyr::pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
       dplyr::select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
-             aut_ep_start_year, aut_ep_end_year, aut_ep_outcome,
-             dem_ep_start_year, dem_ep_end_year,
-             aut_pre_ep_year, dem_pre_ep_year, dem_ep_outcome) %>%
+                    aut_ep_start_year, aut_ep_end_year, aut_ep_outcome,
+                    dem_ep_start_year, dem_ep_end_year,
+                    aut_pre_ep_year, dem_pre_ep_year, dem_ep_outcome) %>%
       dplyr::filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
-             (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
-              ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
+                      (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
+                      ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
       group_by(year) %>%
       mutate(overlap_eps = n(),
@@ -127,77 +157,82 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
              episode_id = ifelse(ep_type == "aut_ep_id", paste0("AUT: ", aut_ep_start_year, "-", aut_ep_end_year, " ", outcome_aut_ep), episode),
              episode_id = ifelse(ep_type == "dem_ep_id", paste0("DEM: ", dem_ep_start_year, "-", dem_ep_end_year, " ", outcome_dem_ep), episode_id)) %>%
       ungroup()
-
+     
     polyarchy <- eps %>%
       filter(country_name == country, between(year, min(years), max(years))) %>%
       ungroup() %>%
       select(year, v2x_polyarchy)
-
+    
     if(max(eps_year$overlap_eps) > 1) {
       print("Warning: Some episodes overlap!")
     }
-
- p <-   ggplot2::ggplot() +
-          geom_line(data = eps_year, aes(group = episode_id, color = episode_id, linetype = ep_type,x = year, y = v2x_polyarchy)) +
-          geom_line(data = polyarchy, aes(x = year, y = v2x_polyarchy), alpha = 0.35) +
-          scale_colour_grey(breaks = levels(factor(eps_year$episode_id[eps_year$episode_id!="overlaps"])),
+    
+    p <-   ggplot2::ggplot() +
+      geom_line(data = eps_year, aes(group = episode_id, color = episode_id, linetype = ep_type,x = year, y = v2x_polyarchy)) +
+      geom_line(data = polyarchy, aes(x = year, y = v2x_polyarchy), alpha = 0.35) +
+      scale_colour_grey(breaks = levels(factor(eps_year$episode_id[eps_year$episode_id!="overlaps"])),
                         name = "Episode", start = 0.01, end = 0.01) +
-          scale_linetype_manual(name = "Episode type", breaks = c("aut_ep_id", "dem_ep_id", "overlaps"),
-                     labels = c("Autocratization", "Democratization", "Overlap"),
-                     values = c("dashed", "dotted", "solid")) +
-          scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
-          xlab("Year") +  ylab("Electoral Democracy Index") + ylim(0,1) +
-          theme_bw() +
-          guides(color = guide_legend(override.aes = list(size = 0))) +
-          ggtitle(sprintf("%s", country))
+      scale_linetype_manual(name = "Episode type", breaks = c("aut_ep_id", "dem_ep_id", "overlaps"),
+                            labels = c("Autocratization", "Democratization", "Overlap"),
+                            values = c("dashed", "dotted", "solid")) +
+      scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
+      xlab("Year") +  ylab("Electoral Democracy Index") + ylim(0,1) +
+      theme_bw() +
+      guides(color = guide_legend(override.aes = list(size = 0))) +
+      ggtitle(sprintf("%s", country))
+    
+if (isTRUE(length(which(eps_year$ep_type == "dem_ep_id")) > 0)){
+    
+    if (any(eps_year$year%in%c(eps_year$dem_ep_start_year))) {
+      p <- p +  geom_point(data = eps_year, aes(x = year, y = ifelse(year == dem_ep_start_year, v2x_polyarchy, NA)), shape = 2, alpha = 0.75) 
 
- if (isTRUE(length(which(eps_year$ep_type == "dem_ep_id")) > 0)) {
-    p <- p +  geom_point(data = eps_year, aes(x = year, y = ifelse(year == dem_ep_start_year, v2x_polyarchy, NA)), shape = 2, alpha = 0.75) +
-        geom_point(data = eps_year, aes(x = year, y = ifelse(year == dem_ep_end_year, v2x_polyarchy, NA)), shape = 17, alpha = 0.75)
- } else {
-    p
- }
-
- if (isTRUE(length(which(eps_year$ep_type == "aut_ep_id")) > 0)) {
-    p <- p +  geom_point(data = eps_year, aes(x = year, y = ifelse(year == aut_ep_start_year, v2x_polyarchy, NA)), shape = 1, alpha = 0.75) +
-       geom_point(data = eps_year, aes(x = year, y = ifelse(year == aut_ep_end_year, v2x_polyarchy, NA)), shape = 16, alpha = 0.75)
- } else {
-    p
- }
-    p
-
-
-  } else{
-
-  if (isTRUE(abs)) {
-    eps_year <- eps %>%
-      dplyr::filter(between(year, min(years), max(years))) %>%
-      dplyr::group_by(year) %>%
-      dplyr::summarise(dem_eps = sum(dem_ep),
-                       aut_eps = sum(aut_ep)) %>%
-    pivot_longer(cols = c(dem_eps, aut_eps), names_to = "ep_type", values_to = "countries")
-
-  } else {
-    eps_year <- eps %>%
-      dplyr::filter(between(year, min(years), max(years))) %>%
-      dplyr::group_by(year) %>%
-      dplyr::summarise(dem_eps = sum(dem_ep) / length(unique(country_id)),
-                       aut_eps = sum(aut_ep) / length(unique(country_id))) %>%
-      pivot_longer(cols = c(dem_eps, aut_eps), names_to = "ep_type", values_to = "countries")
-  }
-
- p <-  ggplot2::ggplot(data = eps_year, aes(x = year, y = countries, group = ep_type, linetype = ep_type)) +
-        geom_line() +
-        scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
-        scale_linetype(name = "", breaks = c("aut_eps", "dem_eps"), labels = c("Autocratization", "Democratization")) +
-        xlab("Year") +
-        theme_classic() +
-        theme(legend.position = "bottom")
-
- if (isTRUE(abs)) {
-   p +  ylab("Number of Countries")
-   }  else {
-   p +  ylab("Countries (%)")
-   }
-  }
+    } else {
+      p
+    }
+    
+  if (any(eps_year$year%in%c(eps_year$dem_ep_end_year))) {
+      p <- p +geom_point(data = eps_year, aes(x = year, y = ifelse(year == dem_ep_end_year, v2x_polyarchy, NA)), shape = 17, alpha = 0.75)
+    } else {
+      p
+    }
 }
+    
+if (isTRUE(length(which(eps_year$ep_type == "aut_ep_id")) > 0)) {
+      
+      if (any(eps_year$year%in%c(eps_year$aut_ep_start_year))){
+      p <- p +  geom_point(data = eps_year, aes(x = year, y = ifelse(year == aut_ep_start_year, v2x_polyarchy, NA)), shape = 1, alpha = 0.75) 
+      } else {
+        p
+      }
+      if (any(eps_year$year%in%c(eps_year$aut_ep_end_year))){
+       p<- p+ geom_point(data = eps_year, aes(x = year, y = ifelse(year == aut_ep_end_year, v2x_polyarchy, NA)), shape = 16, alpha = 0.75)
+    } else {
+      p
+    }
+    }
+    p
+
+    
+} else {
+  print("No episodes during selected period.")
+  
+  polyarchy <- eps %>%
+    filter(country_name == country, between(year, min(years), max(years))) %>%
+    ungroup() %>%
+    select(year, v2x_polyarchy)
+  
+  p <-ggplot2::ggplot() +
+    geom_line(data = polyarchy, aes(x = as.numeric(year), y = v2x_polyarchy), alpha = 0.35) +
+    scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
+    xlab("Year") +  ylab("Electoral Democracy Index") + ylim(0,1) +
+    theme_bw() +
+    ggtitle(sprintf("%s", country))
+  
+  p
+  
+}
+}
+
+
+
+
