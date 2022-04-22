@@ -13,15 +13,10 @@ Description: This package contains the Episodes of Regime Transformation (ERT) d
 Depends: R (>= 3.5.0)
 Imports:
   Rcpp,
-  dplyr,
-  tidyr,
-  stringr,
-  ggplot2,
+  tidyverse,
   hablar,
   plm,
-  tidyselect,
-  purrr,
-  tibble
+  tidyselect
 Suggests:
   testthat
 LinkingTo: Rcpp

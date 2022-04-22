@@ -1,23 +1,17 @@
 #' Plot Episodes of Regime Transformation (ERT) over time.
 #'
-#' `plot_episodes` plots Episodes of Regime Transformation (ERT) over time. It shows either
-#' the global number/share of countries undergoing democratization and autocratization or
-#' episodes for an individual country.
+#' `plot_episodes` plots Episodes of Regime Transformation (ERT) over time for a selected country and a selected time frame.
 #'
 #' This function is a wrapper for [ggplot2:ggplot()] and produces a plot that shows
-#' democratization and autocratization episodes over time.
-#' Either the global number/share of countries undergoing democratization and autocratization or
-#' episodes for an individual country are plotted. The function calls the [ERT:get_eps()] funtion that is
-#' used to identify episodes.
+#' democratization and autocratization episodes for a selected country over time.
+#' The legend includes information on the start and end data of each episode,
+#' as well as the episode outcome. The function calls the [ERT:get_eps()] function
+#' to identify episodes.
 #'
-#' @param abs Logical value: if TRUE, the absolute number of countries in an episode for each year is plotted. If FALSE, the share
-#'  of countries (in \%) undergoing democratization or autocratization is plotted.
+#' @param years Vector with two numeric values indicating the minimum and maximum year to be plotted.
 #'
-#' @param years Vector with numeric values indicating the minimum and maximum year to be plotted.
-#'
-#' @param country Character vector containing the country for which episodes should be shown. Only countries from the
-#'  country_name column in the V-Dem data set are accepted. If no countries are specified, global episode numbers
-#'  are plotted. Only a single country can be selected.
+#' @param country Character vector containing the country for which episodes should be shown. Only entries from the
+#'  country_name column in the V-Dem data set are accepted.
 #'
 #' @param start_incl What is the minimum annual change on V-Dem's Electoral Democracy Index (EDI) necessary to trigger an episode? 
 #' This is the absolute value of the first difference in the EDI required for the onset 
@@ -52,16 +46,12 @@
 #' This could lead to large changes in the composition of episodes. 
 #' We set the default to 5 years because this is the typical amount for an electoral cycle for most countries.}
 #'
-#' @return The output of this function is a [ggplot2:ggplot()] object with global or country-specific episodes.
+#' @return The output of this function is a [ggplot2:ggplot()] object with episodes for a selected country.
 
-#' @import dplyr ggplot2 tidyr stringr
+#' @import tidyverse
 #'
 #' @examples
 #' \dontrun{
-#' # Plot autocratization and democratization episodes over time using
-#'  default values from [ERT:get_eps()].
-#'
-#'  plot_episodes()
 #'
 #' # Plot episodes for Belgium between 1910 and 2010.
 #'
@@ -69,10 +59,6 @@
 #'                years = c(1910, 2010))
 #' }
 #' @export
-
-
-#A nice feature for the first function would be to plot democracy scores without episodes if there are no episodes in the selected timeframe (currently we have the error message which is needed due to the error message) Maybe you could check this out.
-
 
 plot_episodes <- function(years = c(1900, 2021),
                           country = c(),
