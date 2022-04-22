@@ -1,6 +1,6 @@
 #' Plot Episodes of Regime Transformation (ERT) over time.
 #'
-#' `plot_alls` plots the global number/share of countries undergoing
+#' `plot_all` plots the global number/share of countries undergoing
 #'  democratization and autocratization Episodes of Regime Transformation (ERT)
 #'  in a selected time frame.
 #'
