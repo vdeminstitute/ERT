@@ -50,6 +50,8 @@
 
 #' @import tidyverse
 #' 
+#' @export
+
 plot_all <- function(abs = T,
                      years = c(1900, 2020),
                      start_incl  = 0.01,
