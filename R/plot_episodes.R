@@ -48,7 +48,8 @@
 #'
 #' @return The output of this function is a [ggplot2:ggplot()] object with episodes for a selected country.
 
-#' @import tidyverse
+#' @import ggplot2
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
