@@ -57,7 +57,9 @@
 #' For further details and explanations on episodes and outcomes please check the ERT codebook attached to the package 
 #' and available here: https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook.pdf
 #'
-#' @import tidyverse
+#' @import dplyr
+#' @import stringr
+#' @import tidyr
 #' @import Rcpp
 #' @importFrom hablar s
 #' @importFrom plm make.pconsecutive
