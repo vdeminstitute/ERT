@@ -91,7 +91,7 @@ plot_episodes <- function(years = c(1900, 2021),
   if(length(country) == 0)
     stop("Error: No country selected")
   
-  if(!country %in% ERT::vdem$country_name)
+  if(!country %in% data$country_name)
     stop("Error: Country not found")
   
   if(max(years) < min(eps %>% filter(country_name==country) %>% pull(year)) | max(years)>max(eps %>% filter(country_name==country) %>% pull(year)))
