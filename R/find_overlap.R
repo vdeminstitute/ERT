@@ -5,7 +5,9 @@
 #'
 #' @return A summary message and data frame showing the overlaps between democratization and autocratization episodes.
 #'
-#' @import tidyverse
+#' @import dplyr
+#' @import stringr
+#' @import tidyr
 #' @export
 #'
 #' @examples
