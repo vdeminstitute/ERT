@@ -48,7 +48,8 @@
 #'
 #' @return The output of this function is a [ggplot2:ggplot()] object with the number/share of autocratization episodes per year.
 
-#' @import tidyverse
+#' @import ggplot2
+#' @import dplyr
 #' 
 #' @export
 
