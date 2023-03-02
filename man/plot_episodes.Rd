@@ -6,12 +6,13 @@
 \usage{
 plot_episodes(
   years = c(1900, 2021),
-  country = c(),
+  country = c("Sweden"),
   start_incl = 0.01,
   cum_incl = 0.1,
   year_turn = 0.03,
   cum_turn = 0.1,
-  tolerance = 5
+  tolerance = 5,
+  data = ERT::vdem
 )
 }
 \arguments{
@@ -52,6 +53,9 @@ This parameter also defines the number of years necessary for a case to be consi
 stabilized electoral autocracy. \emph{Therefore, care is necessary when manipulating the default value. 
 This could lead to large changes in the composition of episodes. 
 We set the default to 5 years because this is the typical amount for an electoral cycle for most countries.}}
+
+\item{data}{The data based on which the episodes are identified.
+By default the most recent vdem data set.}
 }
 \value{
 The output of this function is a [ggplot2:ggplot()] object with episodes for a selected country.
