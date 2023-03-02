@@ -8,7 +8,7 @@
 
 # load the new vdem dataset and save it as RData in the package folder "data"
 # vdem
-vdem <- readRDS("V-Dem-CY-Full+Others-v12.rds")
+vdem <- readRDS("V-Dem-CY-Full+Others-v13.rds")
 save("vdem", file = "data/vdem.RData")
 
 # load vdem codebook
@@ -27,6 +27,7 @@ devtools::clean_dll()
 
 # save dataset as csv in "inst" folder
 episodes <- get_eps()
+save("episodes", file = "data/episodes.rda")
 write.csv(episodes,"inst/ERT.csv")
 
 # do any additional changes/updates of the scripts in
