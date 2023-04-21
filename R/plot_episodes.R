@@ -124,26 +124,27 @@ plot_episodes <- function(years = c(1900, 2021),
       dplyr::select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
                     aut_ep_start_year, aut_ep_end_year, aut_ep_outcome,
                     dem_ep_start_year, dem_ep_end_year,
-                    aut_pre_ep_year, dem_pre_ep_year, dem_ep_outcome) %>%
+                    aut_pre_ep_year, dem_pre_ep_year, dem_ep_outcome,
+                   aut_ep_censored, dem_ep_censored) %>%
       dplyr::filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
                       (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
                       ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
       group_by(year) %>%
       mutate(overlap_eps = n(),
-             outcome_dem_ep = case_when(dem_ep_outcome == 1 ~ "Democratic transition",
+             outcome_dem_ep = case_when(dem_ep_outcome == 6 | dem_ep_censored == 1 ~ "Outcome censored",
+                                        dem_ep_outcome == 1 ~ "Democratic transition",
                                         dem_ep_outcome == 2 ~ "Preempted democratic transition",
                                         dem_ep_outcome == 3 ~ "Stabilized electoral autocracy",
                                         dem_ep_outcome == 4 ~ "Reverted liberalization",
                                         dem_ep_outcome == 5 ~ "Deepened democracy",
-                                        dem_ep_outcome == 6 ~ "Outcome censored",
                                         T ~ NA_character_),
-             outcome_aut_ep = case_when(aut_ep_outcome == 1 ~ "Democratic breakdown",
+             outcome_aut_ep = case_when(aut_ep_outcome == 6  | aut_ep_censored == 1 ~ "Outcome censored",
+                                        aut_ep_outcome == 1 ~ "Democratic breakdown",
                                         aut_ep_outcome == 2 ~ "Preempted democratic breakdown",
                                         aut_ep_outcome == 3 ~ "Diminished democracy",
                                         aut_ep_outcome == 4 ~ "Averted regression",
                                         aut_ep_outcome == 5 ~ "Regressed autocracy",
-                                        aut_ep_outcome == 6 ~ "Outcome censored",
                                         T ~ NA_character_),
              episode_id = ifelse(ep_type == "aut_ep_id", paste0("AUT: ", aut_ep_start_year, "-", aut_ep_end_year, " ", outcome_aut_ep), episode),
              episode_id = ifelse(ep_type == "dem_ep_id", paste0("DEM: ", dem_ep_start_year, "-", dem_ep_end_year, " ", outcome_dem_ep), episode_id)) %>%
