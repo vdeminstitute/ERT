@@ -16,6 +16,10 @@ An R package to load, explore, and work with the Episodes of Regime Transformati
 * `plot_episodes`: Plot Episodes of Regime Transitions (ERT) over time for a selected country.
 * `plot_all`: Plot share or absolute number of all countries in Episodes of Regime Transitions (ERT) over time.
 
+#### ShinyApp for validity tests ####
+
+* For additional transparency, we provide a [ShinyApp for validation](https://episodes.shinyapps.io/validation/) which allows users to flexibly adjust the ERT parameters and to test how changes to the default thresholds affect the episodes and their validity.
+
 ## Installation ##
 
 ```
