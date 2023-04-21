@@ -39,6 +39,10 @@ Rcpp::compileAttributes()
 devtools::document()
 devtools::check()
 
+# optional/sometimes needed
+devtools::clean_dll()
+
+
 # push to your personal rep
 # do a pull request to the original rep
 
