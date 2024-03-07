@@ -8,7 +8,7 @@
 
 # load the new vdem dataset and save it as RData in the package folder "data"
 # vdem
-vdem <- readRDS("V-Dem-CY-Full+Others-v13.rds")
+vdem <- readRDS("V-Dem-CY-Full+Others-v14.rds")
 save("vdem", file = "data/vdem.RData")
 
 # load vdem codebook

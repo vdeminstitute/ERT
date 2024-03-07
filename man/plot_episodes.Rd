@@ -5,7 +5,7 @@
 \title{Plot Episodes of Regime Transformation (ERT) over time.}
 \usage{
 plot_episodes(
-  years = c(1900, 2021),
+  years = c(1900, 2023),
   country = c("Sweden"),
   start_incl = 0.01,
   cum_incl = 0.1,
