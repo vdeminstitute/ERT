@@ -28,7 +28,12 @@ devtools::clean_dll()
 # save dataset as csv in "inst" folder
 episodes <- get_eps()
 save("episodes", file = "data/episodes.rda")
+# provide the data also as .cvs and .xlsx files for non R-users
 write.csv(episodes,"inst/ERT.csv")
+library("xlsx")
+library("rJava")
+write.xlsx(episodes, file = "inst/ERT.xlsx", sheetName = "episodes", 
+           col.names = TRUE, row.names = TRUE, append = FALSE)
 
 # do any additional changes/updates of the scripts in
 # package folder /R or DESCRIPTION or README.md if required
