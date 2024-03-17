@@ -36,8 +36,7 @@ devtools::install_github("vdeminstitute/ERT")
 # - since the package is a development version - 
 # an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
 # installed. If you have troubles with the installation 
-# write to Linnea Fox (linnea.fox@v-dem.net), 
-# Data Manager and Data Engineer at the V-Dem Institute.
+# write to contact@v-dem.net at the V-Dem Institute.
 
 ```
 
