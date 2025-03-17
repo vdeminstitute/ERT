@@ -8,13 +8,12 @@
 
 # load the new vdem dataset and save it as RData in the package folder "data"
 # vdem
-vdem <- readRDS("V-Dem-CY-Full+Others-v14.rds")
+vdem <- vdemdata::vdem
 save("vdem", file = "data/vdem.RData")
 
 # load vdem codebook
-# NOTE: clean out LaTeX code is NOT done yet (future versions might do so)
 # save as RData in the package folder "data"
-codebook <- readRDS("codebook.rds")
+codebook <- vdemdata::codebook
 save("codebook", file = "data/codebook.RData")
 
 # update ERT codebook online (overleaf)
@@ -27,12 +26,13 @@ devtools::clean_dll()
 
 # save dataset as csv in "inst" folder
 episodes <- get_eps()
+stopifnot(max(episodes$year) == max(vdem$year))
 save("episodes", file = "data/episodes.rda")
 # provide the data also as .cvs and .xlsx files for non R-users
-write.csv(episodes,"inst/ERT.csv")
+write.csv(episodes,"inst/ert.csv")
 library("xlsx")
 library("rJava")
-write.xlsx(episodes, file = "inst/ERT.xlsx", sheetName = "episodes", 
+write.xlsx(episodes, file = "inst/ert.xlsx", sheetName = "episodes", 
            col.names = TRUE, row.names = TRUE, append = FALSE)
 
 # do any additional changes/updates of the scripts in

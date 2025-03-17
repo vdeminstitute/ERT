@@ -1,7 +1,7 @@
 Package: ERT
 Type: Package
 Title: Provides the most recent version of the Episodes of Regime Transformation dataset
-Version: 14.0
+Version: 15.0
 Authors@R: c(person("Seraphine", "Maerz", email = "maerz@soz.uni-frankfurt.de", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
              person("Joshua", "Krusell", email = "js.shirin@gmail.com", role = c("aut")),
@@ -26,5 +26,5 @@ LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3

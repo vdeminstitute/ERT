@@ -2,7 +2,6 @@
 % Please edit documentation in R/ERT-package.R
 \docType{package}
 \name{ERT}
-\alias{ERT-package}
 \alias{ERT}
 \title{ERT}
 \description{
