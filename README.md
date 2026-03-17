@@ -8,7 +8,7 @@ An R package to load, explore, and work with the Episodes of Regime Transformati
 #### Load, explore, and work with the ERT dataset (for details see also the [ERT Codebook](https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook.pdf)): ####
 
 * NOTE: for non-R users we provide [the ERT dataset here as csv. or .xlsx file](https://github.com/vdeminstitute/ERT/blob/master/inst) - however, we recommend loading the ERT dataset via the package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.
-* RELEASES: ERT 15.0 is based on the V-Dem dataset v15. For earlier releases using earlier versions of the V-Dem dataset, see the "Releases" column on the right sight. 
+* RELEASES: ERT 16.0 is based on the V-Dem dataset v16, the V-Dem dataset can be download from the [V-Dem website](https://v-dem.net/data/the-v-dem-dataset/) or you can use the `vdemdata` package. For earlier releases of the ERT package using earlier versions of the V-Dem dataset, see the "Releases" column on the right sight. 
 
 #### Functions ####
 * `get_eps`: Identify episodes of regime transitions (autocratization, democratization) in the most recent V-dem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies [(cf. Maerz et al., Journal of Peace Research, 2023](https://journals.sagepub.com/doi/10.1177/00223433231168192) and [Lührmann and Lindberg, Democratization, 2019)](https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029). Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2022)](https://www.cambridge.org/core/journals/political-science-research-and-methods/article/episodes-of-liberalization-in-autocracies-a-new-approach-to-quantitatively-studying-democratization/CD86064BF11FEEC8BD9354921E3C9BE3)
@@ -38,6 +38,8 @@ devtools::install_github("vdeminstitute/ERT")
 # installed. If you have troubles with the installation 
 # write to contact@v-dem.net at the V-Dem Institute.
 
+# NOTE: a tar.gz is also provide if you encounter any 
+# issues in the installation processes.
 ```
 
 

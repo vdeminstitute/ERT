@@ -30,10 +30,9 @@ stopifnot(max(episodes$year) == max(vdem$year))
 save("episodes", file = "data/episodes.rda")
 # provide the data also as .cvs and .xlsx files for non R-users
 write.csv(episodes,"inst/ert.csv")
-library("xlsx")
-library("rJava")
+library(openxlsx)
 write.xlsx(episodes, file = "inst/ert.xlsx", sheetName = "episodes", 
-           col.names = TRUE, row.names = TRUE, append = FALSE)
+        rowNames = TRUE)
 
 # do any additional changes/updates of the scripts in
 # package folder /R or DESCRIPTION or README.md if required
@@ -43,6 +42,7 @@ write.xlsx(episodes, file = "inst/ert.xlsx", sheetName = "episodes",
 Rcpp::compileAttributes() 
 devtools::document()
 devtools::check()
+devtools::build(path = "~/proj/ERT")
 
 # optional/sometimes needed
 devtools::clean_dll()
