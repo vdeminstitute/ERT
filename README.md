@@ -5,7 +5,7 @@ An R package to load, explore, and work with the Episodes of Regime Transformati
 
 ## Episodes of Regime Transformation (ERT) ##
 
-#### Load, explore, and work with the ERT dataset (for details see also the [ERT Codebook](https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook.pdf)): ####
+#### Load, explore, and work with the ERT dataset (for details see also the [ERT Codebook](https://github.com/vdeminstitute/ERT/blob/master/inst/ERT_codebook_v16.pdf)): ####
 
 * NOTE: for non-R users we provide [the ERT dataset here as csv. or .xlsx file](https://github.com/vdeminstitute/ERT/blob/master/inst) - however, we recommend loading the ERT dataset via the package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.
 * RELEASES: ERT 16.0 is based on the V-Dem dataset v16, the V-Dem dataset can be download from the [V-Dem website](https://v-dem.net/data/the-v-dem-dataset/) or you can use the `vdemdata` package. For earlier releases of the ERT package using earlier versions of the V-Dem dataset, see the "Releases" column on the right sight. 
